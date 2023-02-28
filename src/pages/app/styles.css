@@ -3,4 +3,16 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
+  margin-top: 36px;
+  color: gray;
+}
+
+.app h2,
+h3,
+h4 {
+  line-height: 0px;
+}
+
+.app .ip {
+  color: blue;
 }

@@ -1,17 +1,21 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './styles.css';
 
 export const App = () => {
-
-  const [ip, setIP] = useState('0.0.0.0');
-  const [timeStamp, setTimeStamp] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(true);
+  const [ip, setIP] = useState('');
+  const [timeStamp, setTimeStamp] = useState('');
+  const domain = 'twk.global'
 
   const getData = async () => {
     try {
-      const res = await axios.get('https://geolocation-db.com/json/')
-      setIP(`${res.data.IPv4}`)
-      setTimeStamp(new Date())
+      await axios.get(`http://ip-api.com/json/${domain}`).then((res) => {
+        const ts = new Date();
+        setIP(`${res.data.query}`);
+        setTimeStamp(ts.toString());
+        setIsLoading(false);
+      })
     } catch (error) {
       console.log(error)
     }
@@ -24,11 +28,15 @@ export const App = () => {
   return (
     <div className="app">
       <h2>
-        Your IP Address is
-        <br />
-        {ip}
+        Service IP Address
       </h2>
-      <h4>{timeStamp.toString()}</h4>
+      {isLoading && <h2>Carregando...</h2>}
+      {!isLoading && (
+        <>
+          <h2 className="ip">{ip}</h2>
+          <h4>{timeStamp.toString()}</h4>
+        </>
+      )}
     </div>
   );
 }
