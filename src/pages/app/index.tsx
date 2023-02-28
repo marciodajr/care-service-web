@@ -1,29 +1,21 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useQuery } from 'react-query';
+import { getIP } from '../../services';
 import './styles.css';
 
 export const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [ip, setIP] = useState('');
-  const [timeStamp, setTimeStamp] = useState('');
-  const domain = 'twk.global'
-
-  const getData = async () => {
-    try {
-      await axios.get(`http://ip-api.com/json/${domain}`).then((res) => {
-        const ts = new Date();
-        setIP(`${res.data.query}`);
-        setTimeStamp(ts.toString());
-        setIsLoading(false);
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const [timestamp, setTimestamp] = useState('');
+  const { isLoading, error, data } = useQuery('getIP', getIP)
 
   useEffect(() => {
-    getData()
-  }, [])
+    console.log(error);
+  }, [error,])
+
+  useEffect(() => {
+    setIP(data?.data.query)
+    setTimestamp(new Date().toString());
+  }, [data])
 
   return (
     <div className="app">
@@ -34,7 +26,7 @@ export const App = () => {
       {!isLoading && (
         <>
           <h2 className="ip">{ip}</h2>
-          <h4>{timeStamp.toString()}</h4>
+          <h4>{timestamp}</h4>
         </>
       )}
     </div>

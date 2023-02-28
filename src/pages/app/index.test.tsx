@@ -4,6 +4,6 @@ import { App } from '.';
 
 test('renders learn react link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Your IP Address is/i);
+  const linkElement = screen.getByText(/Service IP Address/i);
   expect(linkElement).toBeInTheDocument();
 });
