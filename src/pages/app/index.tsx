@@ -6,15 +6,18 @@ import './styles.css';
 export const App = () => {
   const [ip, setIP] = useState('');
   const [timestamp, setTimestamp] = useState('');
-  const { isLoading, error, data } = useQuery('getIP', getIP)
+  const { isLoading, error, data } = useQuery('ip', getIP);
 
   useEffect(() => {
-    console.log(error);
-  }, [error,])
+    if (error) {
+      console.log(error);
+    }
+  }, [error])
 
   useEffect(() => {
-    setIP(data?.data.query)
-    setTimestamp(new Date().toString());
+    const ts = new Date().toString();
+    setTimestamp(ts);
+    setIP(data?.data.ipString);
   }, [data])
 
   return (
