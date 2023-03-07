@@ -16,3 +16,33 @@ h4 {
 .app .ip {
   color: blue;
 }
+
+.messages {
+  border: 1px solid gray;
+  width: 300px;
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
+  padding: 0 12px;
+  margin: 24px 0;
+}
+
+.sender {
+  width: 324px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sender input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.sender button {
+  background-color: green;
+  border: 0;
+  color: white;
+  font-weight: bold;
+}
